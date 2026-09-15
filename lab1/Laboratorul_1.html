@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profilul Meu</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 280px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 22px;
+        }
+
+        p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+    
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+  
+    <div class="card">
+        <h1>Salut, sunt Iana!</h1>
+        <p>Cum vă simțiți?</p>
+        
+        <p id="mesaj">Apasă pe butonul de mai jos!</p>
+        
+        <button onclick="schimbaMesaj()">Apasă-mă</button>
+    </div>
+
+    <script>
+        function schimbaMesaj() {
+        
+            const elementMesaj = document.getElementById("mesaj");
+            
+          
+             elementMesaj.innerText = "ce notă merită?";
+            elementMesaj.style.color = "green";
+            elementMesaj.style.fontWeight = "bold";
+        }
+    </script>
+
+</body>
+</html>
