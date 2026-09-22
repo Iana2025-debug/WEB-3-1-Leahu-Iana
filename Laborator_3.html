@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piatra, Foarfeca, Hârtie</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="cutm-logo" aria-label="UTM logo">
+    <span class="utm-label">CUTM</span>
+  </div>
+
+  <div class="container">
+    <h1>Piatra, Foarfeca, Hârtie</h1>
+
+    <div class="controls">
+      <button id="btn-piatra"> Piatra</button>
+      <button id="btn-foarfeca"> Foarfeca</button>
+      <button id="btn-hartie"> Hârtie</button>
+    </div>
+
+    <div class="info-box">
+      <p><strong>Alegerea mea:</strong> <span id="user-choice">-</span></p>
+      <p><strong>Alegerea calculatorului:</strong> <span id="computer-choice">-</span></p>
+      <p><strong>Rezultatul rundei:</strong> <span id="round-result">-</span></p>
+      <p><strong>Scorul meu:</strong> <span id="score-display">0 - 0 (Egalități: 0)</span></p>
+      <p><strong>Runde jucate:</strong> <span id="rounds-count">0</span></p>
+      <div id="leader-status" class="status-message">Jocul încă nu a început.</div>
+      <div id="final-winner" class="final-winner"></div>
+    </div>
+
+    <button id="reset-btn">Începe din nou</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
