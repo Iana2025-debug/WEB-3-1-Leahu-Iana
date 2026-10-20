@@ -1,112 +1,114 @@
-const MAX_WINS = 3;
+let studenti = [
+    { id: 1, nume: "Ion Popescu", grupa: "DAW-241", varsta: 18, specialitate: "Web Dev", avatar: "https://via.placeholder.com/80" },
+    { id: 2, nume: "Maria Ionescu", grupa: "DAW-241", varsta: 19, specialitate: "Design", avatar: "https://via.placeholder.com/80" }
+];
 
-const gameScore = {
-  user: 0,
-  computer: 0,
-  ties: 0,
-  rounds: 0,
-  gameOver: false,
-
-  reset() {
-    this.user = 0;
-    this.computer = 0;
-    this.ties = 0;
-    this.rounds = 0;
-    this.gameOver = false;
-  }
+const studentSuplimentar = {
+    id: 3,
+    nume: "Caliniuc Nichita",
+    grupa: "DAW-241",
+    varsta: 18,
+    specialitate: "Web Development",
+    avatar: "https://via.placeholder.com/80"
 };
 
-function getComputerChoice() {
-  const choices = ['Piatra', 'Foarfeca', 'Hârtie'];
-  const randomIndex = Math.floor(Math.random() * 3);
-  return choices[randomIndex];
+studenti.push(studentSuplimentar);
+
+const container = document.getElementById("studenti-container");
+const spanNumar = document.getElementById("numar-studenti");
+
+function afiseazaStudenți() {
+    container.innerHTML = "";
+
+    if (studenti.length === 0) {
+        container.innerHTML = `<div class="mesaj-gol">Nu există niciun student în listă.</div>`;
+        spanNumar.textContent = 0;
+        return;
+    }
+
+    studenti.forEach(student => {
+        const card = document.createElement("div");
+        card.classList.add("student-card");
+
+        const img = document.createElement("img");
+        img.src = student.avatar;
+        img.alt = "Avatar";
+
+        const nume = document.createElement("h3");
+        nume.textContent = student.nume;
+
+        const grupa = document.createElement("p");
+        grupa.textContent = `Grupa: ${student.grupa}`;
+
+        const varsta = document.createElement("p");
+        varsta.textContent = `Vârstă: ${student.varsta}`;
+
+        const specialitate = document.createElement("p");
+        specialitate.textContent = `Spec: ${student.specialitate}`;
+
+        const btnSterge = document.createElement("button");
+        btnSterge.type = "button";
+        btnSterge.textContent = "Șterge";
+        btnSterge.addEventListener("click", () => stergeStudent(student.id));
+
+        card.append(img, nume, grupa, varsta, specialitate, btnSterge);
+        container.appendChild(card);
+    });
+
+    spanNumar.textContent = studenti.length;
 }
 
-function playRound(userChoice, computerChoice) {
-  if (userChoice === computerChoice) {
-    gameScore.ties++;
-    return 'Egalitate';
-  }
+document.getElementById("form-student").addEventListener("submit", function(event) {
+    event.preventDefault();
 
-  if (
-    (userChoice === 'Piatra' && computerChoice === 'Foarfeca') ||
-    (userChoice === 'Foarfeca' && computerChoice === 'Hârtie') ||
-    (userChoice === 'Hârtie' && computerChoice === 'Piatra')
-  ) {
-    gameScore.user++;
-    return 'Am câștigat!';
-  }
+    const nume = document.getElementById("nume").value.trim();
+    const grupa = document.getElementById("grupa").value.trim();
+    const varsta = parseInt(document.getElementById("varsta").value);
+    const specialitate = document.getElementById("specialitate").value.trim();
+    let avatar = document.getElementById("avatar").value.trim();
 
-  gameScore.computer++;
-  return 'Calculatorul a câștigat!';
+    if (!avatar) {
+        avatar = "https://via.placeholder.com/80";
+    }
+
+    if (isNaN(varsta) || varsta < 14 || varsta > 100) {
+        alert("Eroare: Vârsta trebuie să fie un număr întreg între 14 și 100!");
+        return;
+    }
+
+    const noulStudent = {
+        id: Date.now(),
+        nume,
+        grupa,
+        varsta,
+        specialitate,
+        avatar
+    };
+
+    studenti.push(noulStudent);
+    this.reset();
+    afiseazaStudenți();
+});
+
+function stergeStudent(id) {
+    studenti = studenti.filter(student => student.id !== id);
+    afiseazaStudenți();
 }
 
-function updateUI(userChoice, computerChoice, result) {
-  document.getElementById('user-choice').textContent = userChoice;
-  document.getElementById('computer-choice').textContent = computerChoice;
-  document.getElementById('round-result').textContent = result;
-  document.getElementById('score-display').textContent = `${gameScore.user} - ${gameScore.computer} (Egalități: ${gameScore.ties})`;
-  document.getElementById('rounds-count').textContent = gameScore.rounds;
+function schimbaJustify(valoare) {
+    container.style.justifyContent = valoare;
 }
 
-function checkGameLeader() {
-  const statusElement = document.getElementById('leader-status');
-  if (gameScore.user > gameScore.computer) {
-    statusElement.textContent = 'Eu am avantaj!';
-  } else if (gameScore.computer > gameScore.user) {
-    statusElement.textContent = 'Calculatorul conduce acum.';
-  } else {
-    statusElement.textContent = 'Scorul este egal.';
-  }
+function schimbaAlign(valoare) {
+    container.style.alignItems = valoare;
 }
 
-function checkFinalWinner() {
-  const winnerElement = document.getElementById('final-winner');
-  if (gameScore.user >= MAX_WINS) {
-    winnerElement.textContent = ' Am câștigat!';
-    gameScore.gameOver = true;
-  } else if (gameScore.computer >= MAX_WINS) {
-    winnerElement.textContent = ' Calculatorul a câștigat.';
-    gameScore.gameOver = true;
-  }
+function schimbaWrap(valoare) {
+    container.style.flexWrap = valoare;
 }
 
-function handleGame(userChoice) {
-  if (gameScore.gameOver) {
-    alert('Jocul s-a terminat! Apasă "Începe din nou" pentru a relua.');
-    return;
-  }
-
-  const computerChoice = getComputerChoice();
-  const result = playRound(userChoice, computerChoice);
-  gameScore.rounds++;
-
-  const message = `Am ales ${userChoice}. Calculatorul a ales ${computerChoice}. ${result}\nScor curent: Eu ${gameScore.user} - ${gameScore.computer} Calculator.`;
-  console.log(message);
-
-  updateUI(userChoice, computerChoice, result);
-  checkGameLeader();
-  checkFinalWinner();
-
-  if (gameScore.gameOver) {
-    const finalMessage = `Scor final: Eu ${gameScore.user} - ${gameScore.computer} Calculator.`;
-    console.log(finalMessage);
-    alert(finalMessage);
-  }
+function schimbaGap(valoare) {
+    container.style.gap = valoare + "px";
 }
 
-function resetGame() {
-  gameScore.reset();
-  document.getElementById('user-choice').textContent = '-';
-  document.getElementById('computer-choice').textContent = '-';
-  document.getElementById('round-result').textContent = '-';
-  document.getElementById('score-display').textContent = '0 - 0 (Egalități: 0)';
-  document.getElementById('rounds-count').textContent = '0';
-  document.getElementById('leader-status').textContent = 'Jocul încă nu a început.';
-  document.getElementById('final-winner').textContent = '';
-}
-
-document.getElementById('btn-piatra').addEventListener('click', () => handleGame('Piatra'));
-document.getElementById('btn-foarfeca').addEventListener('click', () => handleGame('Foarfeca'));
-document.getElementById('btn-hartie').addEventListener('click', () => handleGame('Hârtie'));
-document.getElementById('reset-btn').addEventListener('click', resetGame);
+afiseazaStudenți();

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionare Studenți - Flexbox</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="page-shell">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">Dashboard</p>
+                <h1>Gestionare Studenți</h1>
+            </div>
+            <div class="badge">
+                <span>Total</span>
+                <strong id="numar-studenti">0</strong>
+            </div>
+        </header>
+
+        <section class="controls panel">
+            <h3>Control Flexbox</h3>
+            <div class="controls-grid">
+                <label class="field">
+                    Justify Content:
+                    <select id="select-justify" onchange="schimbaJustify(this.value)">
+                        <option value="flex-start">flex-start</option>
+                        <option value="center">center</option>
+                        <option value="flex-end">flex-end</option>
+                        <option value="space-between">space-between</option>
+                        <option value="space-around">space-around</option>
+                        <option value="space-evenly">space-evenly</option>
+                    </select>
+                </label>
+
+                <label class="field">
+                    Align Items:
+                    <select id="select-align" onchange="schimbaAlign(this.value)">
+                        <option value="stretch">stretch</option>
+                        <option value="flex-start">flex-start</option>
+                        <option value="flex-end">flex-end</option>
+                        <option value="center">center</option>
+                        <option value="baseline">baseline</option>
+                    </select>
+                </label>
+
+                <label class="field">
+                    Flex Wrap:
+                    <select id="select-wrap" onchange="schimbaWrap(this.value)">
+                        <option value="wrap">wrap</option>
+                        <option value="nowrap">nowrap</option>
+                        <option value="wrap-reverse">wrap-reverse</option>
+                    </select>
+                </label>
+
+                <label class="field">
+                    Gap (px):
+                    <input type="range" id="range-gap" min="0" max="50" value="18" oninput="schimbaGap(this.value)">
+                </label>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-header">
+                <h3>Adaugă student</h3>
+                <span>Student nou</span>
+            </div>
+
+            <form id="form-student">
+                <input type="text" id="nume" placeholder="Nume și Prenume" required>
+                <input type="text" id="grupa" placeholder="Grupa (ex: DAW-241)" required>
+                <input type="number" id="varsta" placeholder="Vârsta (14-100)" required>
+                <input type="text" id="specialitate" placeholder="Specialitate" required>
+                <input type="text" id="avatar" placeholder="Link imagine avatar (opțional)">
+                <button type="submit">Adaugă Student</button>
+            </form>
+        </section>
+
+        <section class="panel">
+            <div class="section-header">
+                <h3>Lista studenților</h3>
+                <span>Live</span>
+            </div>
+            <div id="studenti-container"></div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
